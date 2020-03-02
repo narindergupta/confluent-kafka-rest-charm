@@ -1,10 +1,10 @@
-# Confluent-schema-regostry-charm
+# Confluent-kafka-rest-charm
 
-This charm will deploy confulent Schema Registry from deb package.
+This charm will deploy confulent Kafka Rest Proxy from deb package.
 
 # Building
 
-    cd src/confluent-schema-registry
+    cd src/
     charm build
 
 Will build the Kafka charm, and then the charm in `/tmp/charm-builds`.
@@ -12,14 +12,17 @@ Will build the Kafka charm, and then the charm in `/tmp/charm-builds`.
 # Operating
 
 This charm uses the repository from confulent. It relates to zookeeper and
+certificate authority.
 
-    juju deploy /tmp/charm-builds/confluent-schema-registry
+    juju deploy /tmp/charm-builds/confluent-kafka-rest
     juju deploy zookeeper
-    juju relate kafka zookeeper
+    juju deploy easyrsa
+    juju relate confluent-kafka-rest zookeeper
+    juju relate confluent-kafka-rest easyrsa
 
 # Notes
 
-The confulent Schema Registry charm requires at least 4GB of memory.
+The confulent Kafka Rest Proxy charm requires at least 4GB of memory.
 
 # Details
 
