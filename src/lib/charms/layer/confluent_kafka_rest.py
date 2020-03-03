@@ -58,7 +58,7 @@ class confluent_kafka_rest(object):
         config = hookenv.config()
 
         context = {
-            'id': os.environ['JUJU_UNIT_NAME'].split('/', 1)[1],
+            'broker_id': os.environ['JUJU_UNIT_NAME'].split('/', 1)[1],
             'zookeeper_connection_string': zk_connect,
             'keystore_password': keystore_password(),
             'ca_keystore': os.path.join(
