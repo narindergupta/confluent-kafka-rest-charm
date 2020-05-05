@@ -1,0 +1,5 @@
+series: bionic
+services:
+  confluent-kafka-rest:
+    charm:  cs:~narindergupta/confluent-kafka-rest
+    num_units: 1

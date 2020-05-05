@@ -107,12 +107,12 @@
     "description": "Used this URL to advertized where regostry listens"
   "confluent_schema_url":
     "type": "string"
-    "default": "http://localhost:8081"
-    "description": "Used this URL to advertized where regostry listens"
+    "default": ""
+    "description": "schema registry url http://localhost:8081 "
   "kafka_bootstrap":
     "type": "string"
-    "default": "localhost:9092"
-    "description": "kafka broker to be used"
+    "default": ""
+    "description": "kafka broker to be used example SSL://localhost:9093"
   "extra_config":
     "default": ""
     "type": "string"

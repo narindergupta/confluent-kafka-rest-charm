@@ -32,7 +32,7 @@ from charmhelpers.core.hookenv import log
 from charms.layer.confluent_kafka_rest import (keystore_password,
                              ca_crt_path, server_crt_path, server_key_path,
                              client_crt_path, client_key_path,
-                             confluent_kafka_rest, KAFKA_REST_PORT,
+                             ConfluentKafkaRest, KAFKA_REST_PORT,
                              KAFKA_REST_DATA)
 
 
@@ -45,9 +45,6 @@ def waiting_for_zookeeper():
 @when('apt.installed.confluent-kafka-rest', 'zookeeper.joined')
 @when_not('confluent_kafka_rest.started', 'zookeeper.ready')
 def waiting_for_zookeeper_ready(zk):
-    kafkarest = confluent_kafka_rest()
-    kafkarest.install()
-    kafkarest.daemon_reload()
     hookenv.status_set('waiting', 'waiting for zookeeper to become ready')
 
 
@@ -79,7 +76,7 @@ def waiting_for_certificates():
 @when_not('confluent_kafka_rest.started')
 def configure_confluent_kafka_rest(zk):
     hookenv.status_set('maintenance', 'setting up confluent_kafka_rest')
-    kafkarest = confluent_kafka_rest()
+    kafkarest = ConfluentKafkaRest()
     if kafkarest.is_running():
         kafkarest.stop()
     zks = zk.zookeepers()
@@ -119,7 +116,7 @@ def configure_confluent_kafka_rest_zookeepers(zk):
 
     hookenv.log('Checking Zookeeper configuration')
     hookenv.status_set('maintenance', 'updating zookeeper instances')
-    kafkareg = confluent_kafka_rest()
+    kafkareg = ConfluentKafkaRest()
     if kafkareg.is_running():
         kafkareg.stop()
     kafkareg.install(zk_units=zks)
@@ -332,7 +329,7 @@ def send_data():
 @when_not('zookeeper.ready')
 def stop_kafka_waiting_for_zookeeper_ready():
     hookenv.status_set('maintenance', 'zookeeper not ready, stopping confluent_kafka_rest')
-    kafkarest = confluent_kafka_rest()
+    kafkarest = ConfluentKafkaRest()
     hookenv.close_port(KAFKA_REST_PORT)
     kafkarest.stop()
     remove_state('confluent_kafka_rest.started')

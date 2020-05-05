@@ -42,7 +42,7 @@ client_crt_path = cert_path / 'client.crt'
 client_key_path = cert_path / 'client.key'
 
 
-class confluent_kafka_rest(object):
+class ConfluentKafkaRest(object):
     def install(self, zk_units=[]):
         '''
         Generates kafka-rest.properties with the current
@@ -52,8 +52,12 @@ class confluent_kafka_rest(object):
         for unit in zk_units or self.get_zks():
             ip = resolve_private_address(unit['host'])
             zks.append('%s:%s' % (ip, unit['port']))
-        zks.sort()
-        zk_connect = ','.join(zks)
+
+        if not zks:
+            return
+        else:
+            zks.sort()
+            zk_connect = ','.join(zks)
 
         config = hookenv.config()
 

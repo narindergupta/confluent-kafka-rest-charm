@@ -19,9 +19,9 @@ in the Juju GUI.
 
 # Usage
 
-juju deploy confulent-kafka-rest
-juju deploy -n 3 zookeeper
-juju deploy -n 3 kafka
+    juju deploy confulent-kafka-rest
+    juju deploy -n 3 zookeeper
+    juju deploy -n 3 kafka
 juju deploy easyrsa
 
 confulent-kafka-rest listens on all IP address at port 8081.
@@ -34,7 +34,8 @@ This is experimental version of charm.
 
 default configurations in the charm used to give you deployment and configuration
 out of box but you can change the configutation
-juju config confulent-kafka-rest
+
+    juju config confulent-kafka-rest
 
 # Contact Information
 
